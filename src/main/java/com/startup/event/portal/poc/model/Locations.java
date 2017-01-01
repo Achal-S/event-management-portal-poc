@@ -1,11 +1,14 @@
 package com.startup.event.portal.poc.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "location")
+@Document(collection = "Locations")
 public class Locations {
 
+	@Id
 	private String id;
+	
 	private String locationName;
 
 	public String getId() {
