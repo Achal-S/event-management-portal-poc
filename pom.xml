@@ -78,6 +78,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>ROOT</finalName>
 		<plugins>
 			<!--  Enable the below plugin while running in local with jar packaging -->
 			<!-- 
@@ -90,6 +91,10 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.0.0</version>
+					<configuration>
+                    	<outputDirectory>deployments</outputDirectory>
+                    	<warName>ROOT</warName>
+                	</configuration>
 			</plugin>
 		</plugins>
 	</build>
