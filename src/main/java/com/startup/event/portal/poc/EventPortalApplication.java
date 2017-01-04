@@ -16,7 +16,7 @@ public class EventPortalApplication extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(EventPortalApplication.class);
+		return builder.sources(EventPortalApplication.class).web(true);
 	}
 
 }
