@@ -1,5 +1,7 @@
 package com.startup.event.portal.poc.model;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,9 +11,9 @@ public class VenueFilterParams {
 	@Id
 	private String id;
 
-	private String venueType;
-	private String capacity;
-	private String features;
+	private List<String> venueTypes;
+	private List<String> capacity;
+	private List<String> features;
 
 	public final String getId() {
 		return id;
@@ -21,27 +23,27 @@ public class VenueFilterParams {
 		this.id = id;
 	}
 
-	public final String getVenueType() {
-		return venueType;
+	public final List<String> getVenueTypes() {
+		return venueTypes;
 	}
 
-	public final void setVenueType(String venueType) {
-		this.venueType = venueType;
+	public final void setVenueTypes(List<String> venueTypes) {
+		this.venueTypes = venueTypes;
 	}
 
-	public final String getCapacity() {
+	public final List<String> getCapacity() {
 		return capacity;
 	}
 
-	public final void setCapacity(String capacity) {
+	public final void setCapacity(List<String> capacity) {
 		this.capacity = capacity;
 	}
 
-	public final String getFeatures() {
+	public final List<String> getFeatures() {
 		return features;
 	}
 
-	public final void setFeatures(String features) {
+	public final void setFeatures(List<String> features) {
 		this.features = features;
 	}
 
