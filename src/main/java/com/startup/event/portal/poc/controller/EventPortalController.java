@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.startup.event.portal.poc.model.Locations;
+import com.startup.event.portal.poc.model.QuoteRequestDetails;
 import com.startup.event.portal.poc.model.VenueDetails;
 import com.startup.event.portal.poc.model.VenueFilterParams;
-import com.startup.event.portal.poc.repository.LocationsRepository;
+import com.startup.event.portal.poc.repository.GenericRepository;
 import com.startup.event.portal.poc.repository.VenuesRepository;
+import com.startup.event.portal.poc.util.EmailSender;
 
 @RestController
 @RequestMapping(
@@ -28,14 +31,17 @@ import com.startup.event.portal.poc.repository.VenuesRepository;
 public class EventPortalController {
 
 	@Autowired
-	private LocationsRepository locationsRepository;
+	private GenericRepository gerericRepository;
 
 	@Autowired
 	private VenuesRepository venuesRepository;
-
+	
+	@Autowired
+	private EmailSender emailSender;
+	
 	@RequestMapping(value = "/getLocations", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<List<Locations>> getLocations() {
-		List<Locations> locations = (List<Locations>) locationsRepository.findAll();
+		List<Locations> locations = (List<Locations>) gerericRepository.findAll();
 		return new ResponseEntity<List<Locations>>(locations, HttpStatus.OK);
 	}
 	
@@ -49,6 +55,13 @@ public class EventPortalController {
 	public @ResponseBody ResponseEntity<List<VenueFilterParams>> getVenueFilterParams() {
 		List<VenueFilterParams> venuesFilterParams = (List<VenueFilterParams>) venuesRepository.getVenueFilterDetails();
 		return new ResponseEntity<List<VenueFilterParams>>(venuesFilterParams, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/postQuoteRequest", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<String> postQuoteRequest(@RequestBody QuoteRequestDetails quoteRequestDetails) {
+		gerericRepository.save(quoteRequestDetails);
+		emailSender.send();
+		return null;
 	}
 	
 

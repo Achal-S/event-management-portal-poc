@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.startup.event.portal.poc.model.Locations;
 
 @Repository
-public interface LocationsRepository extends CrudRepository<Locations, String>{
+public interface GenericRepository<T> extends CrudRepository<T, String>{
 
 }
