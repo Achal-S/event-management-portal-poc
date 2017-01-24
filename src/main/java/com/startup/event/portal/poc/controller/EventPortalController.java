@@ -17,7 +17,8 @@ import com.startup.event.portal.poc.model.Locations;
 import com.startup.event.portal.poc.model.QuoteRequestDetails;
 import com.startup.event.portal.poc.model.VenueDetails;
 import com.startup.event.portal.poc.model.VenueFilterParams;
-import com.startup.event.portal.poc.repository.GenericRepository;
+import com.startup.event.portal.poc.repository.CustomRepository;
+import com.startup.event.portal.poc.repository.LocationsRepository;
 import com.startup.event.portal.poc.repository.VenuesRepository;
 import com.startup.event.portal.poc.util.EmailSender;
 
@@ -31,17 +32,20 @@ import com.startup.event.portal.poc.util.EmailSender;
 public class EventPortalController {
 
 	@Autowired
-	private GenericRepository gerericRepository;
+	private LocationsRepository locationsRepository;
 
 	@Autowired
 	private VenuesRepository venuesRepository;
+	
+	@Autowired
+	private CustomRepository customRepository;
 	
 	@Autowired
 	private EmailSender emailSender;
 	
 	@RequestMapping(value = "/getLocations", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<List<Locations>> getLocations() {
-		List<Locations> locations = (List<Locations>) gerericRepository.findAll();
+		List<Locations> locations = (List<Locations>) locationsRepository.findAll();
 		return new ResponseEntity<List<Locations>>(locations, HttpStatus.OK);
 	}
 	
@@ -59,7 +63,7 @@ public class EventPortalController {
 	
 	@RequestMapping(value = "/postQuoteRequest", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<String> postQuoteRequest(@RequestBody QuoteRequestDetails quoteRequestDetails) {
-		gerericRepository.save(quoteRequestDetails);
+		customRepository.save(quoteRequestDetails);
 		emailSender.send();
 		return null;
 	}
