@@ -1,1 +1,3 @@
-# event-management-portal-poc
+# ph-services-api
+
+API project for PartyHulchul Services
